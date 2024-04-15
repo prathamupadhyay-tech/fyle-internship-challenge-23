@@ -23,29 +23,6 @@
     ng test
 
 
-testing
-
-PaginationComponent
-should create
-RepoItemComponent
-should create
-ApiService
-should be created
-should retrieve user data
-AppComponent
-should create the app
-should have as title 'fyle-frontend-challenge'
-should retrieve user data
-should retrieve repositories
-CacheService
-should be created
-
-
-
-
-
-
-
 
 
 # Fyle Frontend Challenge
