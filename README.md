@@ -1,3 +1,53 @@
+## Running Unit Tests and Code Coverage
+
+### Prerequisites
+- Node.js and npm installed on your machine.
+
+### Steps
+
+1. **Clone the Repository**: 
+   ```bash
+   git clone https://github.com/prathamupadhyay-tech/fyle-internship-challenge-23
+
+
+2. **Install Dependencies**:
+    cd your-project
+    npm install
+4. **Environment variables**:
+   In environment.ts and .prod.ts file add a access token from github
+
+5. **Run Project**:
+    npm ng run ngserve
+
+6. **for testing the Project**:
+    ng test
+
+
+testing
+
+PaginationComponent
+should create
+RepoItemComponent
+should create
+ApiService
+should be created
+should retrieve user data
+AppComponent
+should create the app
+should have as title 'fyle-frontend-challenge'
+should retrieve user data
+should retrieve repositories
+CacheService
+should be created
+
+
+
+
+
+
+
+
+
 # Fyle Frontend Challenge
 
 ## Who is this for?
