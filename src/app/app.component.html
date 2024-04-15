@@ -1,0 +1,108 @@
+<div class="font-[sans-serif] gap-4 flex min-h-screen m-4 border-2 p-4 flex-col md:text-[1em] text-[0.75em]">
+  <div class="md:text-xl gap-3 text-[10px] flex md:flex-row flex-col  md:items-center  p-6  bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-101 transition duration-500">
+    <div class="flex bg-gray-100 p-4 md:w-72 w-full space-x-4 rounded-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <input #filter class="bg-gray-100 outline-none" type="text" placeholder="Username..." />
+    </div>
+    
+    <div (click)="getUserData(filter.value)" class="  bg-red-600 py-3 px-5 text-white font-semibold rounded-lg hover:shadow-lg transition duration-3000 cursor-pointer">
+      <span>Search User</span>
+    </div>
+  </div>
+  
+
+  <div class="flex w-full gap-5 md:flex-row flex-col md:items-start items-center">
+    
+    <div class="flex flex-col gap-4 items-center">
+      <div class="flex md:w-[12em] md:h-[12em] h-[10em] w-[10em] rounded-full overflow-hidden">
+        <ngx-skeleton-loader count="1" appearance="circle" *ngIf="userDataLoader" [theme]="{height: '10em' , width: '10em'}"></ngx-skeleton-loader>
+        <img [src]="data.avatar_url" class="bg-cover bg-no-repeat bg-center" *ngIf="currentUser && !userDataLoader" alt="">
+
+        
+    </div>
+    <ngx-skeleton-loader count="1" appearance="line" *ngIf="userDataLoader" ></ngx-skeleton-loader>
+    
+    <div class="flex gap-2   items-center" *ngIf="currentUser && !userDataLoader">
+      <svg class="h-5 w-5 text-gray-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3" />  <line x1="8" y1="12" x2="16" y2="12" /></svg>
+      <p>
+      <a href="{{data.html_url}} "target="_blank" >{{data.html_url}}</a></p>
+    </div>
+    </div>
+
+    <div class="flex flex-col gap-2 pt-[1em] md:w-[30%] w-[100%]">
+      <ngx-skeleton-loader count="1" appearance="line" *ngIf="userDataLoader" ></ngx-skeleton-loader>
+    
+      <p class="font-bold text-2xl" *ngIf="currentUser && !userDataLoader">{{data.name}}</p>
+      <ngx-skeleton-loader count="1" appearance="line" *ngIf="userDataLoader" ></ngx-skeleton-loader>
+    
+      <p class="font-semibold" *ngIf="currentUser && !userDataLoader">{{data.bio}}</p>
+      <ngx-skeleton-loader count="1" appearance="line" *ngIf="userDataLoader" ></ngx-skeleton-loader>
+    
+      <div class="flex gap-2 items-center"  *ngIf="currentUser && !userDataLoader" >
+        <svg class="h-8 w-8 text-black-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <p>{{data.location}}</p>
+      </div>
+      <ngx-skeleton-loader count="1" appearance="line" *ngIf="userDataLoader" ></ngx-skeleton-loader>
+    
+      <p *ngIf="currentUser && !userDataLoader">Twitter: <a  href="https://twitter.com/{{data.twitter_username}} "target="_blank" >https://twitter.com/{{data.twitter_username}}</a></p>
+    </div>
+    </div>
+
+    <div class="flex items-center justify-between w-full">
+      <div *ngIf="currentUser && data"><span class="font-bold ">Currently Showing</span>: {{pageLimit}} Repos </div>
+      <div  *ngIf="currentUser && data"  class="relative inline-block text-left">
+        <div>
+          <button (click)="toggleDropdown()" type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
+            Page Limit
+            <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      
+       
+        <div #dropdownDiv class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+          <div class="py-1" role="none">
+          
+            <a (click)="changePageLimit(10)" href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">10 items per page</a>
+            <a (click)="changePageLimit(20)" href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">20 items per page</a>
+            <a (click)="changePageLimit(50)" href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">50 items per page</a>
+            <a (click)="changePageLimit(100)" href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">100 items per page</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid  gap-5 grid-cols-1 md:grid-cols-2" *ngIf="loader">
+      <ng-container  *ngFor="let _ of [].constructor(10); let i = index">
+        <div>
+          <ngx-skeleton-loader count="1" appearance="line" *ngIf="loader"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" *ngIf="loader"></ngx-skeleton-loader>
+          <ngx-skeleton-loader count="1" appearance="line" *ngIf="loader"></ngx-skeleton-loader>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="grid gap-5 grid-cols-1 md:grid-cols-2" >
+     
+      
+    
+      <div *ngFor = 'let repo of repoData' >
+       
+        <app-repo-item *ngIf="!loader"  [repo] = "repo"></app-repo-item>
+      </div>
+     
+    
+    </div>
+    <div *ngIf="currentUser" class="w-full flex justify-center items-center mt-auto">
+       
+        <app-pagination  [currentPage] = "currentPage" [limit]="pageLimit" [total]="data.public_repos" (changePage) ="changePage($event)" (decreasePage)="decreasePage($event)" (increasePage)="increasePage($event)"></app-pagination>
+ 
+    </div>
+
+</div>

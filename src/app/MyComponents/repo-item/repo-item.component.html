@@ -1,0 +1,18 @@
+
+<div class="flex border-2 h-[100%] justify-between flex-col p-4 gap-5 ">
+    <div>
+        <p class="text-3xl text-[#438BCB]">{{repo?.name}}</p>
+    <p>{{repo?.description}}</p>
+    </div>
+
+    <div class="flex gap-2 flex-wrap">
+        <div *ngFor="let item of repo?.languages | keyvalue">
+            <div class="bg-[#438BCB] p-2 rounded-[5px]">
+                <p class="text-[white]">{{item.key}}</p> 
+            </div>
+        </div>
+       
+    </div>
+
+
+</div>
